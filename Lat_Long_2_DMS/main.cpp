@@ -1,10 +1,4 @@
 /*
-	Convert the other two of the three main systems to decimal degrees.
-	The three systems are DMS, decimal degrees, and Tim believes something called "nautical," but he's not sure if thats
-	the name of the third system or another term for DMS or decimal degrees.
-	So figure out the three systems, and re-write this code so that it will convert all data entered to decimal degrees.
-	IDEA: Use overloaded functions!
-	Upload this cpp file to a repo Robert will create.
 	Thingiverse.com
 	Use the orange 3d printer for experimenting.
 */
@@ -36,11 +30,11 @@ int main()
 				cin >> a;
 				int b = a;
 				a -= b;
-				if (a > 0) { a *= 60; }
+				if (abs(a) > 0) { a *= 60; }
 				int c = a;
 				a -= c;
-				if (a > 0) { a *= 60; }
-				cout << b << "d " << c << "' " << a << "\" ";
+				if (abs(a) > 0) { a *= 60; }
+				cout << b << "d " << abs(c) << "' " << abs(a) << "\" ";
 				cout << endl;
 			}
 			else if (choice == 2)
@@ -78,10 +72,18 @@ int main()
 
 double toDecimalDegree(int degree, int minutes, double seconds)
 {
+	if (degree < 0)
+	{
+		return -(abs(degree) + (minutes / 60.0) + (seconds / 3600));
+	}
 	return (degree + (minutes/60.0) + (seconds / 3600));
 }
 
 double toDecimalDegree(int degree, double minutes)
 {
+	if (degree < 0)
+	{
+		return -(abs(degree) + (minutes / 60));
+	}
 	return (degree + (minutes/60));
 }
